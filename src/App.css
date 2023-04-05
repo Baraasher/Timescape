@@ -1,38 +1,100 @@
-.App {
-  text-align: center;
+:root {
+  /* Colors */
+  --background: #fffffe;
+  --headline: #0d0d0d;
+  --sub-headline: #2a2a2a;
+  --card-background: #eff0f3;
+  --card-heading: #0d0d0d;
+  --card-paragraph: #2a2a2a;
+  --icons-stroke: #0d0d0d;
+  --main: #eff0f3;
+  --highlight: #ff8e3c;
+  --secondary: #fffffe;
+  --tertiary: #d9376e;
+  
+  /* Text Sizes */
+  --heading-1: 3rem;
+  --heading-2: 2.5rem;
+  --heading-3: 2rem;
+  --paragraph: 1.6rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  color: var(--headline);
+  margin-bottom: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1 {
+  font-size: var(--heading-1);
 }
 
-.App-link {
-  color: #61dafb;
+h2 {
+  font-size: var(--heading-2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h3 {
+  font-size: var(--heading-3);
+}
+
+p {
+  font-size: var(--paragraph);
+  color: var(--sub-headline);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background-color: var(--card-background);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.card h2 {
+  font-size: var(--heading-2);
+  color: var(--card-heading);
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: var(--paragraph);
+  color: var(--card-paragraph);
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.icon {
+  stroke: var(--icons-stroke);
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.primary-button {
+  background-color: var(--highlight);
+  color: var(--secondary);
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  font-size: var(--paragraph);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.primary-button:hover {
+  background-color: darken(var(--highlight), 10%);
 }
