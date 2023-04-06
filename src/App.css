@@ -1,22 +1,31 @@
 :root {
-  /* Colors */
-  --background: #fffffe;
-  --headline: #0d0d0d;
-  --sub-headline: #2a2a2a;
-  --card-background: #eff0f3;
-  --card-heading: #0d0d0d;
-  --card-paragraph: #2a2a2a;
-  --icons-stroke: #0d0d0d;
-  --main: #eff0f3;
-  --highlight: #ff8e3c;
-  --secondary: #fffffe;
-  --tertiary: #d9376e;
-  
-  /* Text Sizes */
-  --heading-1: 3rem;
-  --heading-2: 2.5rem;
-  --heading-3: 2rem;
-  --paragraph: 1.6rem;
+  --background: #101827;
+  --sidebar: rgba(21, 30, 47, 1);
+  --headline: #fff;
+  --table-border: #1a2131;
+  --table-header: #1a2131;
+  --sub-headline: #fff;
+  --sidebar-link: #fff;
+  --sidebar-active-link: #1d283c;
+  --sidebar-hover-link: #1a2539;
+  --highlight: #2869ff;
+  --secondary: #fff;
+  --card-background: #1d283c;
+  --card-heading: #fff;
+  --card-paragraph: #fff;
+  --icons-stroke: #fff;
+  --paragraph: 16px;
+  --heading-1: 48px;
+  --heading-2: 32px;
+  --heading-3: 24px;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Chillax', sans-serif;
+
 }
 
 .container {
@@ -36,7 +45,7 @@ h3 {
 }
 
 h1 {
-  font-size: var(--heading-1);
+  font-size: var(--heading-2);
 }
 
 h2 {
@@ -82,7 +91,7 @@ p {
   margin-right: 0.5rem;
 }
 
-.primary-button {
+button {
   background-color: var(--highlight);
   color: var(--secondary);
   padding: 0.75rem 1rem;
@@ -95,6 +104,157 @@ p {
   cursor: pointer;
 }
 
-.primary-button:hover {
+button:hover {
   background-color: darken(var(--highlight), 10%);
+}
+
+
+.App{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  min-height: 100vh;
+}
+
+body , html, .App {
+  background-color: var(--background);
+overflow: hidden;
+}
+
+.AddDateSection{
+  width: 20%;
+  height: 100vh;
+  background-color: var(--card-background);
+}
+
+.ShowDateSection{
+  width: 80%;
+  height: 100vh;
+}
+
+aside{
+  padding: 10px 10px 0 10px;
+}
+
+@media screen and (max-width:1000px) {
+  .App{
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .AddDateSection , .ShowDateSection{
+    width: 100vw;
+  }
+
+  .AddDateSection{
+    height: 30%;
+  }
+
+  .ShowDateSection{
+    height: 70%;
+  }
+
+  aside{
+    padding: 10px;
+
+  }
+}
+
+button {
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: --;
+  color: #ffffff;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+button:hover {
+  background-color: #6fc5ff;
+  box-shadow: 0 0 20px #6fc5ff50;
+}
+
+button:active {
+  background-color: #3d94cf;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+}
+
+
+.input {
+  width: 100%;
+  max-width: 100%;
+  height: 44px;
+  background-color: var(--secondary);
+  border-radius: .5rem;
+  padding: 10px;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  color: #000;
+  transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
+}
+
+textarea{
+  height: 250px !important;
+}
+
+.label {
+  display: block;
+  margin-bottom: .3rem;
+  font-size: .9rem;
+  font-weight: bold;
+  color: var(--card-paragraph);
+  transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
+  padding: 10px 0;
+}
+
+
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons button{
+  margin: 20px 0;
+}
+
+.ActionButtons{
+  display: flex;
+  gap: 1rem;
+}
+
+.ActionButtons button {
+  margin: 10px 0;
+}
+
+.ActionCard{
+  background-color: var(--card-background);
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.ActionCard h5{
+  color: var(--card-heading);
+
+}
+
+.ActionCard p{
+  color: var(--card-paragraph);
+  background-color: #000000;
+max-width: 40%;
+height: 150px;
+border-radius: 8px;
+padding: 10px;
+margin: 10px 0;
 }
