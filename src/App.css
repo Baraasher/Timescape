@@ -38,6 +38,7 @@
   bottom: 0;
   background-color: var(--background);
   z-index: 9999;
+  display: none;
 }
 .preloader-spinner {
   position: absolute;
