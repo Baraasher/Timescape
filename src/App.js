@@ -3,8 +3,9 @@ import "./App.css";
 import 'animate.css'
 import { FaTrash } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
-
-
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.min.css';
+import 'alertifyjs/build/css/themes/default.min.css';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState("");
@@ -18,9 +19,16 @@ function App() {
   };
   const handleSaveAction = () => {
     if (!note.trim()) {
-      alert("Please enter a note before saving.");
+      alertify.warning('Please enter a note before saving.' ,2);
       return;
     }
+
+ if  (!selectedDate.trim()){
+alertify.warning('Please enter a date before saving' ,2);
+return;
+
+}
+
     const newAction = { date: selectedDate, note: note };
     const newSavedActions = [...savedActions, newAction];
     setSavedActions(newSavedActions);
@@ -28,35 +36,32 @@ function App() {
     setSelectedDate("");
     setNote("");
   };
-
   const [showModal, setShowModal] = useState(false);
-
   const handleClearAll = () => {
     setShowModal(true);
   };
-
   const handleClearAllConfirmed = () => {
+    if (savedActions.length === 0) {
+      alertify.warning('No saved dates to delete');
+      return;
+    }
+
     setSavedActions([]);
     localStorage.removeItem("savedActions");
     setShowModal(false);
+    alertify.success('Delete All Date ' , 2);
+
   };
-  
   const handleClearActions = () => {
     setShowModal(true);
   };
-  
-  
 <button onClick={handleClearAll}>Clear All</button>
-
-  
-
   const handleDeleteAction = (index) => {
     const newSavedActions = [...savedActions];
     newSavedActions.splice(index, 1);
     setSavedActions(newSavedActions);
     localStorage.setItem("savedActions", JSON.stringify(newSavedActions));
   };
-
   const handleEditAction = (index) => {
     const selectedAction = savedActions[index];
     setSelectedDate(selectedAction.date);
@@ -67,28 +72,24 @@ function App() {
     localStorage.setItem("savedActions", JSON.stringify(newSavedActions));
   };
   React.useEffect(() => {
-
     var preloader = document.getElementsByClassName('preloader');
-  
     window.addEventListener('load', function() {
       preloader[0].style.display = "none";
       document.body.classList.remove('loading');
     });
-    
     const savedActionsJson = localStorage.getItem("savedActions");
     if (savedActionsJson) {
       setSavedActions(JSON.parse(savedActionsJson));
     }
   }, []);
-  
-  
   return (
-
-
-    <div class="loading">
-    <div class="preloader">
-      <div class="preloader-spinner"></div>
+    <div className="loading">
+    <div className="preloader">
+      <div className="preloader-spinner"></div>
     </div>
+
+
+    
     <main className="App">
       {showModal && (
         <div className="modal">
@@ -104,13 +105,13 @@ function App() {
       <aside className="AddDateSection">
         <h1>Timescape</h1>
         <label>
-          <div class="input-group">
-            <label class="label">Select a date and time:</label>
+          <div className="input-group">
+            <label className="label">Select a date and time:</label>
             <input
-              autocomplete="off"
+              autoComplete="off"
               name="Email"
               id="Email"
-              class="input"
+              className="input"
               type="datetime-local"
               value={selectedDate}
               onChange={handleDateChange}
@@ -120,29 +121,32 @@ function App() {
         </label>
         <label>
           <br />
-          <div class="input-group">
-            <label class="label">Leave a note</label>
+          <div className="input-group">
+            <label className="label">Leave a note</label>
             <textarea
-              autocomplete="off"
+              autoComplete="off"
               name="Email"
               id="Email"
-              class="input"
+              className="input"
               value={note}
               onChange={handleNoteChange}
             />
             <div></div>
           </div>
         </label>
-        <div class="buttons">
+        <div className="buttons">
           <button onClick={handleSaveAction}>Save</button>
           <button onClick={handleClearAll}>Clear All</button>
         </div>
+        
       </aside>
+      
+
+      
       <aside className="ShowDateSection">
-        <h2>Saved Actions:</h2>
-        {savedActions.length === 0 && <p>No actions saved yet.</p>}
+        {savedActions.length === 0 && <p className="NoActions">No actions saved yet.</p>}
         {savedActions.map((action, index) => (
-          <div className="ActionCard" key={index}>
+          <div className="ActionCard animate__animated animate__fadeIn" key={index}>
             <div>
               <h5>Date and Time:</h5>
               <p id="dateActionDiv"> {action.date}</p>
@@ -164,7 +168,6 @@ function App() {
       </aside>
     </main>
   </div>
-  
   );
 }
 export default App;

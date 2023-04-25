@@ -1,9 +1,5 @@
 # Timescape
 
-# Screenshoot
-![screenshoot](https://user-images.githubusercontent.com/89737291/230663021-54836855-022a-4115-b779-b02947eca81f.png)
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
