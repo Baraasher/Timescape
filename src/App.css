@@ -27,8 +27,6 @@
   box-sizing: border-box;
   font-family: "Chillax", sans-serif;
 }
-
-
 /* Preloader */
 .preloader {
   position: fixed;
@@ -210,7 +208,6 @@ aside {
 @media screen and (max-width: 1000px) {
   html{
     overflow-x: hidden !important;
-
     overflow-y: scroll !important;
   }
   .preloader-spinner{
@@ -224,43 +221,42 @@ aside {
     flex-direction: column;
     justify-content: start;
   }
-
   .AddDateSection,
   .ShowDateSection {
     width: 100vw;
   }
   .AddDateSection {
-    height: 100vh;
-    padding: 28vw 10px;
+    height: max-content;
+    padding: 10vh 10px;
+    width: 100%;
 }
 
 
-.AddDateSection::after {
-  content: "▼";
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #edf0f1;
-  text-transform: uppercase;
-  position: absolute;
-  bottom: 0;
-  left: 0%;
-  right: 0%;
-  margin: auto;
-  margin-bottom: 1rem;
-  padding: 0;
-  width: 100%;
 
+.buttons{
+  margin-top: 10vh;
 }
-
   .ShowDateSection {
-    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 5vh 0;
+    height: max-content;
   }
   aside {
     padding: 10px;
   }
+
+.ActionCard{
+  width: 100% !important;
+    margin: 10px !important;
+}
+
+.modal-content{
+  width: 90% !important; 
+}
+
 }
 button {
   border: 0;
