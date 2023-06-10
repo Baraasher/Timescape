@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
+import "./styles/SVG_background.css"
 import 'animate.css'
 import { FaTrash } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.min.css';
 import 'alertifyjs/build/css/themes/default.min.css';
+
 
 // Component definition
 function App() {
