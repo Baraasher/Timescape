@@ -7,7 +7,7 @@ import { FaEdit } from 'react-icons/fa';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.min.css';
 import 'alertifyjs/build/css/themes/default.min.css';
-
+import toast, { Toaster } from 'react-hot-toast';
 
 // Component definition
 function App() {
@@ -28,12 +28,36 @@ function App() {
   // Handle save action
   const handleSaveAction = () => {
     if (!note.trim()) {
-      alertify.warning('Please enter a note before saving.', 2);
+
+      toast('Please Type A Note',
+        {
+          icon: '🗒️',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
+
       return;
     }
 
     if (!selectedDate.trim()) {
-      alertify.warning('Please enter a date before saving', 2);
+
+
+      toast('Please Type A Date',
+        {
+          icon: '📅',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+      );
+
+
       return;
     }
 
@@ -55,14 +79,31 @@ function App() {
   // Handle clear all actions confirmation
   const handleClearAllConfirmed = () => {
     if (savedActions.length === 0) {
-      alertify.warning('No saved dates to delete');
+
+      toast('No saved dates to delete!',
+        {
+          icon: '❕',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }
+
+
+
+      );
+
+      setShowModal(false);
+
       return;
     }
 
     setSavedActions([]);
     localStorage.removeItem("savedActions");
     setShowModal(false);
-    alertify.success('Delete All Date ', 2);
+    toast.success('All Notes Delete Sucessful!')
+
   };
 
   // Handle clear actions
@@ -106,7 +147,10 @@ function App() {
   return (
 
     <>
-
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <div className="loading">
         <div className="preloader">
           <div className="preloader-spinner"></div>
@@ -115,7 +159,11 @@ function App() {
         <main className="App">
           {/* Modal for confirmation */}
           {showModal && (
-            <div className="modal">
+            <div className="modal animate__animated animate__fadeIn"
+              style={{
+                animationDuration: '0.5s'
+              }}
+            >
               <div className="modal-content">
                 <h2>Are you sure you want to clear all actions?</h2>
                 <div className="modal-buttons">
