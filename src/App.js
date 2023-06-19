@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
-import "./styles/SVG_background.css"
-import 'animate.css'
-import { FaTrash } from 'react-icons/fa';
-import { FaEdit } from 'react-icons/fa';
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.min.css';
-import 'alertifyjs/build/css/themes/default.min.css';
-import toast, { Toaster } from 'react-hot-toast';
+import "./styles/SVG_background.css";
+import "animate.css";
+import { FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import "alertifyjs/build/css/alertify.min.css";
+import "alertifyjs/build/css/themes/default.min.css";
+import toast, { Toaster } from "react-hot-toast";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // Component definition
 function App() {
@@ -28,35 +28,27 @@ function App() {
   // Handle save action
   const handleSaveAction = () => {
     if (!note.trim()) {
-
-      toast('Please Type A Note',
-        {
-          icon: '🗒️',
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-      );
+      toast("Please Type A Note", {
+        icon: "🗒️",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
 
       return;
     }
 
     if (!selectedDate.trim()) {
-
-
-      toast('Please Type A Date',
-        {
-          icon: '📅',
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-      );
-
+      toast("Please Type A Date", {
+        icon: "📅",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
 
       return;
     }
@@ -79,20 +71,14 @@ function App() {
   // Handle clear all actions confirmation
   const handleClearAllConfirmed = () => {
     if (savedActions.length === 0) {
-
-      toast('No saved dates to delete!',
-        {
-          icon: '❕',
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        }
-
-
-
-      );
+      toast("No saved dates to delete!", {
+        icon: "❕",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
 
       setShowModal(false);
 
@@ -102,8 +88,7 @@ function App() {
     setSavedActions([]);
     localStorage.removeItem("savedActions");
     setShowModal(false);
-    toast.success('All Notes Delete Sucessful!')
-
+    toast.success("All Actions Clear Successful!");
   };
 
   // Handle clear actions
@@ -132,10 +117,10 @@ function App() {
 
   // Component mount effect
   React.useEffect(() => {
-    var preloader = document.getElementsByClassName('preloader');
-    window.addEventListener('load', function () {
+    var preloader = document.getElementsByClassName("preloader");
+    window.addEventListener("load", function () {
       preloader[0].style.display = "none";
-      document.body.classList.remove('loading');
+      document.body.classList.remove("loading");
     });
 
     const savedActionsJson = localStorage.getItem("savedActions");
@@ -144,13 +129,21 @@ function App() {
     }
   }, []);
 
-  return (
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
 
+    const items = Array.from(savedActions);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setSavedActions(items);
+  };
+
+  return (
     <>
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-      />
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="loading">
         <div className="preloader">
           <div className="preloader-spinner"></div>
@@ -159,9 +152,10 @@ function App() {
         <main className="App">
           {/* Modal for confirmation */}
           {showModal && (
-            <div className="modal animate__animated animate__fadeIn"
+            <div
+              className="modal animate__animated animate__fadeIn"
               style={{
-                animationDuration: '0.5s'
+                animationDuration: "0.5s",
               }}
             >
               <div className="modal-content">
@@ -212,33 +206,62 @@ function App() {
             </div>
           </aside>
 
-          <aside className="ShowDateSection">
-            {savedActions.length === 0 && <p className="NoActions">No actions saved yet.</p>}
-            {savedActions.map((action, index) => (
-              <div className="ActionCard animate__animated animate__fadeIn" key={index}>
-                <div>
-                  <h5>Date and Time:</h5>
-                  <p id="dateActionDiv"> {action.date}</p>
-                </div>
-                <div>
-                  <h5>Note: </h5>
-                </div>
-                <p>{action.note}</p>
-                <div className="ActionButtons">
-                  <button onClick={() => handleEditAction(index)}>
-                    <FaEdit size={14} color="#fff" />
-                  </button>
-                  <button onClick={() => handleDeleteAction(index)}>
-                    <FaTrash size={14} color="#fff" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </aside>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable-1">
+              {(provided) => (
+                <aside
+                  className="ShowDateSection"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {savedActions.length === 0 && (
+                    <p className="NoActions">No actions saved yet.</p>
+                  )}
+                  {savedActions.map((action, index) => (
+                    <Draggable
+                      key={index}
+                      draggableId={`item-${index}`}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="ActionCard animate__animated animate__fadeIn"
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <div>
+                            <h5>Date and Time:</h5>
+                            <p id="dateActionDiv"> {action.date}</p>
+                          </div>
+                          <div>
+                            <h5>Note: </h5>
+                          </div>
+                          <p>{action.note}</p>
+                          <div className="ActionButtons">
+                            <button
+                              onClick={() => handleEditAction(index)}
+                            >
+                              <FaEdit size={14} color="#fff" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteAction(index)}
+                            >
+                              <FaTrash size={14} color="#fff" />
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </aside>
+              )}
+            </Droppable>
+          </DragDropContext>
         </main>
       </div>
     </>
-
   );
 }
 

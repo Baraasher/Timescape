@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Modal, Button, Text, Input } from "@nextui-org/react";
 import "./CustomModel.css";
 
